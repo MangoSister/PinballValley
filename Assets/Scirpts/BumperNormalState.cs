@@ -1,0 +1,44 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class BumperNormalState : StateMachineBehaviour {
+
+    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        var bumper = animator.gameObject.GetComponent<Bumper>();
+        bumper.currentHealth = bumper.gameManager.bumperMaxHealth;
+
+        var reactions = animator.gameObject.GetComponentsInChildren<BumperReaction>(true);
+        foreach (var reaction in reactions)
+            reaction.enabled = true;
+
+        //visual effect when activated
+        var renderers = animator.gameObject.GetComponentsInChildren<MeshRenderer>(true);
+        foreach (var renderer in renderers)
+            renderer.enabled = true;
+    }
+
+    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        var bumper = animator.gameObject.GetComponent<Bumper>();
+        if (bumper.currentHealth <= 0)
+            animator.SetBool("IsCaptured", true);
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    //
+    //}
+
+    // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
+    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    //
+    //}
+
+    // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
+    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    //
+    //}
+}

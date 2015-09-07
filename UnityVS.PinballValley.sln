@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.PinballValley.CSharp.Plugins", "UnityVS.PinballValley.CSharp.Plugins.csproj", "{C43DDB2A-8701-AA14-D013-B9936A29C83D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.PinballValley.CSharp", "UnityVS.PinballValley.CSharp.csproj", "{9CE7F849-6525-D2E6-898F-6FA5255EF3A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.PinballValley.CSharp.Editor", "UnityVS.PinballValley.CSharp.Editor.csproj", "{51621473-E187-1706-1C1E-ED28D9C97A01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C43DDB2A-8701-AA14-D013-B9936A29C83D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43DDB2A-8701-AA14-D013-B9936A29C83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43DDB2A-8701-AA14-D013-B9936A29C83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43DDB2A-8701-AA14-D013-B9936A29C83D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CE7F849-6525-D2E6-898F-6FA5255EF3A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CE7F849-6525-D2E6-898F-6FA5255EF3A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CE7F849-6525-D2E6-898F-6FA5255EF3A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CE7F849-6525-D2E6-898F-6FA5255EF3A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51621473-E187-1706-1C1E-ED28D9C97A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51621473-E187-1706-1C1E-ED28D9C97A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51621473-E187-1706-1C1E-ED28D9C97A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51621473-E187-1706-1C1E-ED28D9C97A01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
