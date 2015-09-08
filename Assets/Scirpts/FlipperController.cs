@@ -6,6 +6,8 @@ public class FlipperController : MonoBehaviour
     private HingeJoint hinge;
 
     public string inputAxis;
+    public bool inputSign;
+
     public const float idleAngle = 0f;
     public bool counterClockWise = false;
     public float maxAngle = 70f;
@@ -18,7 +20,7 @@ public class FlipperController : MonoBehaviour
     {
 		Debug.Assert(inputAxis != string.Empty);
 
-		Debug.Assert(kingdom != null);
+		//Debug.Assert(kingdom != null);
 
         maxAngle = Mathf.Clamp(maxAngle, 0f, 90f);
         fireForce = Mathf.Clamp(fireForce, 10f, 500f);
@@ -42,7 +44,8 @@ public class FlipperController : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetButton(inputAxis))
+        if ((Input.GetAxis(inputAxis) > 0f && inputSign) ||
+            (Input.GetAxis(inputAxis) < 0f && !inputSign))
         {
             var spring = hinge.spring;
             spring.spring = fireForce;

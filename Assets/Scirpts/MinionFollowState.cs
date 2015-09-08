@@ -7,26 +7,17 @@ public class MinionFollowState : StateMachineBehaviour
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
 	{
-		var minion = animator.gameObject.GetComponent<Minion>();
-		minion.navMeshAgent.Resume();
+        animator.SetBool("Arrived", false);
+        var minion = animator.gameObject.GetComponent<Minion>();
+
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
 	{
 		var minion = animator.gameObject.GetComponent<Minion>();
-		minion.navMeshAgent.SetDestination(minion.gatheringFlag.transform.position);
-
-        if (minion.HasArrived())
-        {
-            animator.SetTrigger("Arrived");
-            animator.ResetTrigger("NotArrived");
-        }
-        else
-        {
-            animator.SetTrigger("NotArrived");
-            animator.ResetTrigger("Arrived");
-        }
+        minion.navMeshAgent.SetDestination(minion.gatheringFlag.transform.position);
+        minion.navMeshAgent.Resume();
 
         Minion.TargetType targetType = minion.UpdateTarget();
         if (targetType == Minion.TargetType.Minion)
@@ -48,6 +39,7 @@ public class MinionFollowState : StateMachineBehaviour
             animator.ResetTrigger("TargetMinion");
         }
 
+        animator.SetBool("Arrived", minion.HasArrived());
 
 	}
 

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PinballLauncherReadyState : StateMachineBehaviour 
 {
+    public float waitMaxTime = 5f;
+    public float waitTime = 0f;
 	public float holdDownMaxTime = 2f;
 	private float holdDownTimer = 0f;
 	private bool startHeldDown = false;
@@ -10,16 +12,18 @@ public class PinballLauncherReadyState : StateMachineBehaviour
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
 	{
-		holdDownTimer = 0f;
+        waitTime = 0f;
+        holdDownTimer = 0f;
 		startHeldDown = false;
-	}
+        animator.SetBool("IsLaunched", false);
+    }
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
 	{
 		PinballLauncher launcher = animator.gameObject.GetComponent<PinballLauncher>();
 
-		if (!launcher.gameManager.pinballInMap)
+		if (!launcher.gameManager.pinballInMap && Random.value > 0.5f)
 		{
 			pinball = launcher.SpawnPinball();
 			pinball.GetComponent<Rigidbody>().isKinematic = true;
@@ -28,7 +32,18 @@ public class PinballLauncherReadyState : StateMachineBehaviour
 		
 		if(pinball != null)
 		{
-			if(!startHeldDown && Input.GetButtonDown(launcher.inputAxis))
+            if (!startHeldDown && !Input.GetButtonDown(launcher.inputAxis))
+            {
+                waitTime += Time.deltaTime;
+                if (waitTime >= waitMaxTime)
+                {
+                    pinball.GetComponent<Rigidbody>().isKinematic = false;
+                    pinball.gameObject.GetComponent<Rigidbody>().AddForce
+                        (new Vector3(0, 0, Random.value * launcher.launchStrength), ForceMode.VelocityChange);
+                    animator.SetBool("IsLaunched", true);
+                }
+            }
+			else if(!startHeldDown && Input.GetButtonDown(launcher.inputAxis))
 			{
 				startHeldDown = true;
 			}
@@ -48,7 +63,7 @@ public class PinballLauncherReadyState : StateMachineBehaviour
 					(new Vector3(0 , 0, chargeLevel * launcher.launchStrength), ForceMode.VelocityChange);
                 //				
 
-				launcher.gameManager.pinballInMap = true;
+				//launcher.gameManager.pinballInMap = true;
 				animator.SetBool("IsLaunched",true);
 			}
 		}

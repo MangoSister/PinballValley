@@ -8,7 +8,9 @@ public class KingdomBase : AttackableUnit
     public GameObject gatheringFlag;
     public Minion MinionPrefab;
     public Vector3 spawningOffset;
-   	
+
+    public Color kingdomColor;
+
     public float minionSpawnInterval = 5f;
     private float minionSpawnTimer;
     public int maxMinionNum = 5;
@@ -54,6 +56,7 @@ public class KingdomBase : AttackableUnit
 
 		//destroy pinball
 		Destroy(other.gameObject);
+        gameManager.pinballInMap = false;
 
         //pinball explosion special effect & sound
 
@@ -81,5 +84,6 @@ public class KingdomBase : AttackableUnit
         Minion newMinion = Instantiate(MinionPrefab, transform.position + spawningOffset, Quaternion.identity) as Minion;
         newMinion.gatheringFlag = gatheringFlag.GetComponent<GatheringFlagController>();
         newMinion.kingdom = this;
+        newMinion.GetComponent<MeshRenderer>().material.color = kingdomColor;
     }
 }

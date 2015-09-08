@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         pinballInMap = false;
     }
 
+
 	public void OnBaseDestroy()
 	{
         //Debug.Log("base destroyed");
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         {
             restartTimer += Time.deltaTime;
             if (restartTimer >= restartInterval)
-                Application.LoadLevel("regular");
+                Application.LoadLevel("start");
         }
     }
 }
